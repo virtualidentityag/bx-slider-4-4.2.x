@@ -558,6 +558,7 @@
      */
     var setPositionProperty = function(value, type, duration, params) {
       var animateObj, propValue;
+      value = Math.round(value);
       // use CSS transform
       if (slider.usingCSS) {
         // determine the translate3d value
