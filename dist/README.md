@@ -1,4 +1,4 @@
-#bxSlider 4.3
+#bxSlider 4.2.6
 ##The fully-loaded, responsive jQuery content slider
 ##Now working with Jquery 3.x
 

@@ -1,5 +1,5 @@
 /**
- * bxSlider v4.2.8
+ * bxSlider v4.2.6
  * Copyright 2013-2017 Steven Wanderski
  * Written while drinking Belgian ales and listening to jazz
 
@@ -566,6 +566,7 @@
      */
     var setPositionProperty = function(value, type, duration, params) {
       var animateObj, propValue;
+      value = Math.round(value);
       // use CSS transform
       if (slider.usingCSS) {
         // determine the translate3d value
