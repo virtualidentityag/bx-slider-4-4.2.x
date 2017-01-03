@@ -91,7 +91,7 @@
     onSlideNext: function() { return true; },
     onSlidePrev: function() { return true; },
     onSliderResizeBefore: function() { return true; },
-    onSliderResizeAfter: function() { return true; }
+    onSliderResizeAfter: function() { return true; },
     onAutoChange: function() { return true; }//Add a callback for when the auto rotate status changes? Like when the pause/play buttons are pressed
   };
 

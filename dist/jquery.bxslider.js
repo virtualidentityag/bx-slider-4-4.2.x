@@ -1,5 +1,13 @@
 /**
  * bxSlider v4.2.8
+ * Copyright 2013-2017 Steven Wanderski
+ * Written while drinking Belgian ales and listening to jazz
+
+ * Licensed under  ()
+ */
+
+/**
+ * bxSlider v4.2.5
  * Copyright 2013-2015 Steven Wanderski
  * Written while drinking Belgian ales and listening to jazz
 
@@ -91,7 +99,7 @@
     onSlideNext: function() { return true; },
     onSlidePrev: function() { return true; },
     onSliderResizeBefore: function() { return true; },
-    onSliderResizeAfter: function() { return true; }
+    onSliderResizeAfter: function() { return true; },
     onAutoChange: function() { return true; }//Add a callback for when the auto rotate status changes? Like when the pause/play buttons are pressed
   };
 
