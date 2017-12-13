@@ -1,17 +1,15 @@
 {
   "name": "bxslider",
-  "description": "Touch enabled jQuery plugin for creating responsive carousels and sliders.",
-  "version": "4.2.6",
+  "description": "Touch enabled jQuery plugin for creating responsive carousels and sliders, with vi modifications",
+  "version": "4.3.0",
   "homepage": "http://bxslider.com",
   "author": {
-    "name": "Steven Wanderski",
-    "email": "steven@bxcreative.com",
-    "url": "http://stevenwanderski.com"
+    "name": "viag"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stevenwanderski/bxslider-4/bxslider-4.git"
+    "url": "https://github.com/virtualidentityag/bx-slider-4-4.2.x.git"
   },
   "bugs": {
     "url": "https://github.com/stevenwanderski/bxslider-4/issues"
