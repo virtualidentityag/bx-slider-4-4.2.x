@@ -7,7 +7,10 @@
  */
 
 /**
- * bxSlider v4.2.5
+ * bxSlider v4.2.5 base
+ * - modifications by viag https://github.com/virtualidentityag/bx-slider-4-4.2.x
+ * - modifications by janrembold https://github.com/janrembold/bxslider-4/ up to commit #ebbcf932c51a3f45b80d546aefbfb331689a8792
+ *
  * Copyright 2013-2015 Steven Wanderski
  * Written while drinking Belgian ales and listening to jazz
 
@@ -336,7 +339,7 @@
       // slider has been fully initialized
       slider.initialized = true;
       // bind the resize call to the window
-      if (slider.settings.responsive) { $(window).bind('resize', resizeWindow); }
+      if (slider.settings.responsive) { $(window).on('resize', resizeWindow); }
       // if auto is true and has more than 1 page, start the show
       if (slider.settings.auto && slider.settings.autoStart && (getPagerQty() > 1 || slider.settings.autoSlideForOnePage)) { initAuto(); }
       // if ticker is true, start the ticker
@@ -577,11 +580,11 @@
           el.css(slider.animProp, propValue);
           if (duration !== 0) {
             // bind a callback method - executes when CSS transition completes
-            el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e) {
+            el.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e) {
               //make sure it's the correct one
               if (!$(e.target).is(el)) { return; }
               // unbind the callback
-              el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+              el.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
               updateAfterSlideTransition();
             });
           } else { //duration = 0
@@ -594,11 +597,11 @@
           el.css('-' + slider.cssPrefix + '-transition-timing-function', 'linear');
           el.css(slider.animProp, propValue);
           if (duration !== 0) {
-            el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e) {
+            el.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e) {
               //make sure it's the correct one
               if (!$(e.target).is(el)) { return; }
               // unbind the callback
-              el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+              el.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
               // reset the position
               setPositionProperty(params.resetValue, 'reset', 0);
               // start the loop again
@@ -685,8 +688,8 @@
       slider.controls.next = $('<a class="bx-next" href="">' + slider.settings.nextText + '</a>');
       slider.controls.prev = $('<a class="bx-prev" href="">' + slider.settings.prevText + '</a>');
       // bind click actions to the controls
-      slider.controls.next.bind('click touchend', clickNextBind);
-      slider.controls.prev.bind('click touchend', clickPrevBind);
+      slider.controls.next.on('click touchend', clickNextBind);
+      slider.controls.prev.on('click touchend', clickPrevBind);
       // if nextSelector was supplied, populate it
       if (slider.settings.nextSelector) {
         $(slider.settings.nextSelector).append(slider.controls.next);
@@ -1090,7 +1093,7 @@
         start: {x: 0, y: 0},
         end: {x: 0, y: 0}
       };
-      slider.viewport.bind('touchstart MSPointerDown pointerdown', onTouchStart);
+      slider.viewport.on('touchstart MSPointerDown pointerdown', onTouchStart);
 
       //for browsers that have implemented pointer events and fire a click after
       //every pointerup regardless of whether pointerup is on same screen location as pointerdown or not
@@ -1129,10 +1132,10 @@
           slider.viewport.get(0).setPointerCapture(slider.pointerId);
         }
         // bind a "touchmove" event to the viewport
-        slider.viewport.bind('touchmove MSPointerMove pointermove', onTouchMove);
+        slider.viewport.on('touchmove MSPointerMove pointermove', onTouchMove);
         // bind a "touchend" event to the viewport
-        slider.viewport.bind('touchend MSPointerUp pointerup', onTouchEnd);
-        slider.viewport.bind('MSPointerCancel pointercancel', onPointerCancel);
+        slider.viewport.on('touchend MSPointerUp pointerup', onTouchEnd);
+        slider.viewport.on('MSPointerCancel pointercancel', onPointerCancel);
       }
     };
 
@@ -1149,9 +1152,9 @@
 
       //remove handlers
       slider.controls.el.removeClass('disabled');
-      slider.viewport.unbind('MSPointerCancel pointercancel', onPointerCancel);
-      slider.viewport.unbind('touchmove MSPointerMove pointermove', onTouchMove);
-      slider.viewport.unbind('touchend MSPointerUp pointerup', onTouchEnd);
+      slider.viewport.off('MSPointerCancel pointercancel', onPointerCancel);
+      slider.viewport.off('touchmove MSPointerMove pointermove', onTouchMove);
+      slider.viewport.off('touchend MSPointerUp pointerup', onTouchEnd);
       if (slider.viewport.get(0).releasePointerCapture) {
         slider.viewport.get(0).releasePointerCapture(slider.pointerId);
       }
@@ -1200,7 +1203,7 @@
      *  - DOM event object
      */
     var onTouchEnd = function(e) {
-      slider.viewport.unbind('touchmove MSPointerMove pointermove', onTouchMove);
+      slider.viewport.off('touchmove MSPointerMove pointermove', onTouchMove);
       //enable slider controls as soon as user stops interacing with slides
       slider.controls.el.removeClass('disabled');
       var orig    = e.originalEvent,
@@ -1249,7 +1252,7 @@
           }
         }
       }
-      slider.viewport.unbind('touchend MSPointerUp pointerup', onTouchEnd);
+      slider.viewport.off('touchend MSPointerUp pointerup', onTouchEnd);
       if (slider.viewport.get(0).releasePointerCapture) {
         slider.viewport.get(0).releasePointerCapture(slider.pointerId);
       }
@@ -1424,8 +1427,8 @@
             lastShowingIndex = slider.children.length - slider.settings.minSlides;
             position = slider.children.eq(lastShowingIndex).position();
           }
-        // going previous while on first slide (infiniteLoop mode)
-        } else if (slider.active.last && direction === 'prev') {
+        // horizontal carousel, going previous while on first slide (infiniteLoop mode)
+        } else if (slider.carousel && slider.active.last && direction === 'prev') {
           // get the last child position
           eq = slider.settings.moveSlides === 1 ? slider.settings.maxSlides - getMoveBy() : ((getPagerQty() - 1) * getMoveBy()) - (slider.children.length - slider.settings.maxSlides);
           lastChild = el.children('.bx-clone').eq(eq);
@@ -1615,8 +1618,8 @@
 	  $('.bx-caption', this).remove();
       if (slider.controls.autoEl) { slider.controls.autoEl.remove(); }
       clearInterval(slider.interval);
-      if (slider.settings.responsive) { $(window).unbind('resize', resizeWindow); }
-      if (slider.settings.keyboardEnabled) { $(document).unbind('keydown', keyPress); }
+      if (slider.settings.responsive) { $(window).off('resize', resizeWindow); }
+      if (slider.settings.keyboardEnabled) { $(document).off('keydown', keyPress); }
       //remove self reference in data
       $(this).removeData('bxSlider');
     };
