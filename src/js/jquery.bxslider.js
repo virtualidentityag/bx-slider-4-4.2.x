@@ -1,5 +1,8 @@
 /**
- * bxSlider v4.2.5
+ * bxSlider v4.2.5 base
+ * - modifications by viag https://github.com/virtualidentityag/bx-slider-4-4.2.x
+ * - modifications by janrembold https://github.com/janrembold/bxslider-4/ up to commit #ebbcf932c51a3f45b80d546aefbfb331689a8792
+ *
  * Copyright 2013-2015 Steven Wanderski
  * Written while drinking Belgian ales and listening to jazz
 
