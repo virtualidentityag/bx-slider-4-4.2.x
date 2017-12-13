@@ -271,11 +271,11 @@
       // only check for control addition if not in "ticker" mode
       if (!slider.settings.ticker) {
         // if controls are requested, add them
-        if (slider.settings.controls) { appendControls(); }
+        if (slider.settings.controls) { appendControls(); slider.viewport.parent().addClass('has-controls'); }
         // if auto is true, and auto controls are requested, add them
         if (slider.settings.auto && slider.settings.autoControls) { appendControlsAuto(); }
         // if pager is requested, add it
-        if (slider.settings.pager) { appendPager(); }
+        if (slider.settings.pager) { appendPager(); slider.viewport.parent().addClass('has-pager'); }
         // if any control option is requested, add the controls wrapper
         if (slider.settings.controls || slider.settings.autoControls || slider.settings.pager) { slider.viewport.after(slider.controls.el); }
       // if ticker mode, do not allow a pager
