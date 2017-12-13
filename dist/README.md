@@ -1,15 +1,10 @@
-#bxSlider 4.2.6
-##The fully-loaded, responsive jQuery content slider
-##Now working with Jquery 3.x
+# bxSlider 4.2.5 with viag modifications
+## The fully-loaded, responsive jQuery content slider. Now working with Jquery 3.x
 
-###Why should I use this slider?
-* Fully responsive - will adapt to any device
-* Horizontal, vertical, and fade modes
-* Slides can contain images, video, or HTML content
-* Full callback API and public methods
-* Small file size, fully themed, simple to implement
-* Browser support: Firefox, Chrome, Safari, iOS, Android, IE7+
-* Tons of configuration options
+### Why should I use this slider?
+* You shouldn't: this repo is not maintained. This is only used for legacy components. Please use a modern slider if you set up a new project.
+
+## original documentation
 
 For complete documentation, tons of examples, and a good time, visit:
 
