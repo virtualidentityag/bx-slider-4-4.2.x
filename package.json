@@ -1,7 +1,7 @@
 {
   "name": "bxslider",
   "description": "Touch enabled jQuery plugin for creating responsive carousels and sliders, with vi modifications",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "homepage": "http://bxslider.com",
   "author": {
     "name": "viag"
