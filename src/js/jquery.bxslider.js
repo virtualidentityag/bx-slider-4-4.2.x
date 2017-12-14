@@ -271,11 +271,11 @@
       // only check for control addition if not in "ticker" mode
       if (!slider.settings.ticker) {
         // if controls are requested, add them
-        if (slider.settings.controls) { appendControls(); }
+        if (slider.settings.controls) { appendControls(); slider.viewport.parent().addClass('has-controls'); }
         // if auto is true, and auto controls are requested, add them
         if (slider.settings.auto && slider.settings.autoControls) { appendControlsAuto(); }
         // if pager is requested, add it
-        if (slider.settings.pager) { appendPager(); }
+        if (slider.settings.pager) { appendPager(); slider.viewport.parent().addClass('has-pager'); }
         // if any control option is requested, add the controls wrapper
         if (slider.settings.controls || slider.settings.autoControls || slider.settings.pager) { slider.viewport.after(slider.controls.el); }
       // if ticker mode, do not allow a pager
@@ -461,7 +461,7 @@
         } else {
           childWidth = slider.children.first().outerWidth() + slider.settings.slideMargin;
           slidesShowing = Math.floor((slider.viewport.width() +
-            slider.settings.slideMargin) / childWidth);
+            slider.settings.slideMargin) / childWidth) || 1;
         }
       // if "vertical" mode, slides showing will always be minSlides
       } else if (slider.settings.mode === 'vertical') {
@@ -910,6 +910,14 @@
       }
     };
 
+      var windowFocusHandler = function () {
+        el.startAuto();
+      };
+
+      var windowBlurHandler = function () {
+        el.stopAuto();
+      };
+
     /**
      * Initializes the auto process
      */
@@ -922,11 +930,7 @@
         el.startAuto();
 
         //add focus and blur events to ensure its running if timeout gets paused
-        $(window).focus(function() {
-          el.startAuto();
-        }).blur(function() {
-          el.stopAuto();
-        });
+        $(window).focus(windowFocusHandler).blur(windowBlurHandler);
       }
       // if autoHover is requested
       if (slider.settings.autoHover) {
@@ -1116,6 +1120,7 @@
         slider.touch.originalPos = el.position();
         var orig = e.originalEvent,
         touchPoints = (typeof orig.changedTouches !== 'undefined') ? orig.changedTouches : [orig];
+        var chromePointerEvents = typeof PointerEvent === 'function'; if (chromePointerEvents) { if (orig.pointerId === undefined) { return; } }
         // record the starting touch x, y coordinates
         slider.touch.start.x = touchPoints[0].pageX;
         slider.touch.start.y = touchPoints[0].pageY;
@@ -1446,9 +1451,8 @@
           value = slider.settings.mode === 'horizontal' ? -(position.left - moveBy) : -position.top;
           // plugin values to be animated
           setPositionProperty(value, 'slide', slider.settings.speed);
-        } else {
-          slider.working = false;
         }
+        slider.working = false;
       }
       if (slider.settings.ariaHidden) { applyAriaHiddenAttributes(slider.active.index * getMoveBy()); }
     };
@@ -1615,6 +1619,8 @@
       if (slider.settings.keyboardEnabled) { $(document).off('keydown', keyPress); }
       //remove self reference in data
       $(this).removeData('bxSlider');
+      //remove global window handlers
+      $(window).off('focus', windowFocusHandler).off('blur', windowBlurHandler);
     };
 
     /**
