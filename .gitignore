@@ -5,4 +5,5 @@ jscs.report.txt
 /node_modules
 jquery.bxslider.zip
 .idea
+dist
 /dist
