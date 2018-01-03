@@ -1399,6 +1399,8 @@
         if (slider.settings.adaptiveHeight && slider.viewport.height() !== getViewportHeight()) {
           slider.viewport.animate({height: getViewportHeight()}, slider.settings.adaptiveHeightSpeed);
         }
+        // multiple browser bugfix to prevent blinking when fading
+        slider.children.eq(slider.active.index).fadeOut(0);
         // fade out the visible child and reset its z-index value
         slider.children.filter(':visible').fadeOut(slider.settings.speed).css({zIndex: 0});
         // fade in the newly requested slide
