@@ -372,7 +372,7 @@
           for (i = 1; i <= slider.settings.maxSlides - 1; i++) {
             // if looped back to the start
             if (currentIndex + i >= slider.children.length) {
-              children = children.add(slider.children.eq(i - 1));
+              children = children.add(slider.children.eq(i - (slider.settings.maxSlides - 1)));
             } else {
               children = children.add(slider.children.eq(currentIndex + i));
             }
