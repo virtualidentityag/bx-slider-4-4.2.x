@@ -1,6 +1,6 @@
 /**
- * bxSlider v4.2.6
- * Copyright 2013-2017 Steven Wanderski
+ * bxSlider v4.2.8
+ * Copyright 2013-2019 Steven Wanderski
  * Written while drinking Belgian ales and listening to jazz
 
  * Licensed under  ()
@@ -1124,10 +1124,6 @@
         slider.touch.start.x = touchPoints[0].pageX;
         slider.touch.start.y = touchPoints[0].pageY;
 
-        if (slider.viewport.get(0).setPointerCapture) {
-          slider.pointerId = orig.pointerId;
-          slider.viewport.get(0).setPointerCapture(slider.pointerId);
-        }
         // bind a "touchmove" event to the viewport
         slider.viewport.bind('touchmove MSPointerMove pointermove', onTouchMove);
         // bind a "touchend" event to the viewport
