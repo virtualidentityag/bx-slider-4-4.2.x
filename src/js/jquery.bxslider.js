@@ -1132,6 +1132,7 @@
                 slider.viewport.get(0).setPointerCapture(slider.pointerId);
             }
         }
+        
         // bind a "touchmove" event to the viewport
         slider.viewport.on('touchmove MSPointerMove pointermove', onTouchMove);
         // bind a "touchend" event to the viewport
