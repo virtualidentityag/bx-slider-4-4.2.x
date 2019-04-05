@@ -488,7 +488,8 @@
             breakPoint = counter + getNumberSlidesShowing();
             counter += slider.settings.moveSlides <= getNumberSlidesShowing() ? slider.settings.moveSlides : getNumberSlidesShowing();
           }
-          return counter;
+          // BUGFIX: when showing and sliding multiple slides, it shows more dots than necessary
+          // return counter;
         }
       // if moveSlides is 0 (auto) divide children length by sides showing, then round up
       } else {
@@ -1125,6 +1126,13 @@
         slider.touch.start.x = touchPoints[0].pageX;
         slider.touch.start.y = touchPoints[0].pageY;
 
+        if (slider.viewport.get(0).setPointerCapture) {
+            slider.pointerId = orig.pointerId;
+            if (slider.pointerId === 1) {
+                slider.viewport.get(0).setPointerCapture(slider.pointerId);
+            }
+        }
+        
         // bind a "touchmove" event to the viewport
         slider.viewport.on('touchmove MSPointerMove pointermove', onTouchMove);
         // bind a "touchend" event to the viewport
